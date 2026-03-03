@@ -1,0 +1,72 @@
+﻿@model List<global::Task.Models.Product>
+
+@{
+    ViewData["Title"] = "Ana Səhifə";
+}
+
+<div class="text-center">
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto flex items-center justify-between p-4 lg:px-10">
+            <div class="flex items-center gap-2">
+                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600 text-white">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight text-gray-800 uppercase">
+                    My<span class="text-emerald-600">Store</span>
+                </span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8 font-semibold text-gray-600">
+                <a href="/" class="hover:text-emerald-600 transition">Ana Səhifə</a>
+                <a href="/Products" class="hover:text-emerald-600 transition">Məhsullar</a>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <button class="text-gray-700 hover:text-emerald-600 transition">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <a href="/Cart" class="relative text-gray-700 hover:text-emerald-600 transition p-2">
+                    <i class="fa-solid fa-cart-shopping text-2xl"></i>
+                    <span class="absolute top-0 right-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white ring-2 ring-white">
+                        @Model?.Count
+                    </span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="all-cards container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 p-10">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="card w-full max-w-sm justify-self-center overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-2">
+                    <div class="card-img relative p-4">
+                        <span class="absolute left-6 bottom-6 z-10 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white shadow-md">-20%</span>
+                        <img src="~/images/@item.Image" class="card-img-top" alt="@item.Title" style="height: 250px; object-fit: contain;">
+                    </div>
+
+                    <div class="card-content p-6 text-center">
+                        <h3 class="mb-1 text-xl font-bold text-gray-800 uppercase tracking-tight">@item.Title</h3>
+                        <p class="mb-2 text-lg font-bold text-emerald-600">@item.Price AZN</p>
+                        <p class="mb-4 text-sm text-gray-500 italic">Məhsul haqqında keyfiyyətli seçim.</p>
+
+                        <div class="stars flex justify-center gap-1 text-amber-400">
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm"></i>
+                            <i class="fa-solid fa-star text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-span-3 py-20">
+                <p class="text-gray-400 text-xl font-bold">Bazadan məhsul tapılmadı!</p>
+            </div>
+        }
+    </div>
+</div>
